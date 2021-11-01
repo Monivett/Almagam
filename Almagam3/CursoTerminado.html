@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/71ff6f1b84.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Curso</title>
+
+
+    <style>
+        .body {
+            background: #8D8D8D;
+            background: linear-gradient(to right, #434343, #8D8D8D);
+        }
+
+        .bg {
+            background-color: #000000;
+        }
+
+        .bg2 {
+            background-color: #c2d2e9;
+        }
+
+        .bg3 {
+            background-color: #131313;
+        }
+
+        .bg4 {
+            background-color: #50c59e;
+        }
+
+        .bg5 {
+            background-color: #53b9a8;
+        }
+
+        .bg7 {
+            background-color: #188170;
+        }
+
+        #perfilU,
+        #perfilM,
+
+        #btn_cerrar,
+
+        #btn_cat {
+            display: none;
+        }
+
+        #BotonNivel1:hover,
+        #BotonNivel2:hover,
+        #BotonNivel3:hover,
+        #BotonNivel4:hover,
+        #BotonNivel5:hover {
+            background-color: #b6ffcc;
+        }
+
+        #complete {
+            color: #50c59e;
+        }
+
+        .wrapper {
+            width: 180px;
+            height: 80px;
+            background-color: #131313;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .radio_group {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            position: relative;
+            text-align: center;
+            line-height: 50px;
+            font-size: 40px;
+        }
+
+        .radio_group input[type="radio"] {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            margin: 0;
+            padding: 0;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .radio_group input[type="radio"]+label {
+            color: #95a5a6;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: scale(.8);
+        }
+
+        #like:checked+label {
+            color: #23e5ff;
+            transform: scale(1.1);
+        }
+
+        #unlike:checked+label {
+            color: #e93939;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <nav class="navbar sticky-top  navbar-dark bg">
+        <div class="container d-flex justify-content-around">
+            <div class="row">
+                <div class="col-auto mt-4 ">
+
+                    <img onclick="location.href='Principal.html'" src="img/logo.png" alt="" width="150">
+
+
+                </div>
+                <div class="col-auto mt-3">
+                    <button id="btn_mensajes" class="btn btn-outline-success " onclick="location.href='ChatLog.html'"
+                        type="submit"><i class="fab fa-facebook-messenger m-2 "></i> Mensajes</button>
+                </div>
+                <div class="col-auto mt-3">
+
+                    <button id="btn_misCursos" class="btn btn-success " onclick="location.href='PerfilUsuario.html'"
+                        type="submit"> <i class="fas fa-shopping-basket m-2"></i>Mis Cursos</button>
+                </div>
+
+                <div class="col-auto mt-3">
+                    <input type="text" class="form-control" id="Buscador" placeholder="Buscar">
+                </div>
+                <div class="col-auto mt-3">
+                    <button class="btn btn-success" onclick="BuscarCurso()" type="submit">Buscar</button>
+                </div>
+
+                <div class="col-auto ms-auto mt-3 ">
+
+                    <button id="btn_cerrar" onclick="location.href='CerrarSesion.php'" class="btn btn-outline-success"
+                        type="submit">Cerrar
+                        Sesión</button>
+
+
+                </div>
+                <div class="col-auto ms-auto mt-3 ">
+
+
+
+                </div>
+
+                <div id="BtnPerfil" class="col-auto  m-2 ">
+                    <a id="perfilU" href="PerfilUsuario.html"><img src="php/PerfilFoto.php" alt="" width="70"
+                            class="img-thumbnail">
+                    </a>
+                    <a id="perfilM" href="PerfilMaestro.html"><img src="php/PerfilFoto.php" alt="" width="70"
+                            class="img-thumbnail">
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    </div>
+    <div class="row">
+        <div class="col-3  bg4 m-3   rounded-lg shadow text-center">
+            <h2 id="cursoNombre"></h2>
+            <div class="card   rounded shadow-lg mt-5 ">
+                <h3 id="NumeroNivel" class="mt-2"></h3>
+
+                <p id="NombreNivel" class="card-text"><small class="text-muted"> </small></p>
+
+                <br>
+            </div>
+            <br>
+            <h6 class="mt-2">Descripción</h6>
+
+            <p id="Descripcion" class="card-text"><small class="text-muted"> </small></p>
+
+
+
+            <div id="Materiales" class="mb-3 mt-5">
+
+
+                <hr class="style3">
+
+            </div>
+        </div>
+
+        <div class="col-8 p-3  bg5 m-3  rounded-lg shadow">
+
+            <div class=" text-center ">
+
+
+                <div class="embed-responsive embed-responsive-16by9 ">
+
+                    <video width="800" controls="true" poster="" id="Nivelvideo">
+                        <source type="video/mp4">
+                        </source>
+                    </video>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col bg5 mb-3 m-2  rounded-lg shadow text-center">
+
+            <div class="mb-3 mt-5">
+                <h2 id="ExtraVideo"> Más vídeos de Nivel</h2>
+
+                <hr class="style3">
+
+                <div id="videoExtra">
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <div id="btnNivel" class="col bg4  p-5  mb-3   m-2 d-flex flex-column align-items-center">
+
+            <h2>Todos los Niveles del Curso </h2>
+
+
+
+
+        </div>
+
+
+    </div>
+    <form id="Comentario" method="POST">
+
+
+        <div class="row">
+            <div class="col  bg5   p-5  shadow ">
+
+                <div class="text-white">
+                    <h2 id="Calificacion">Califica el Curso que has terminado</h2>
+                </div>
+
+
+                <div class="d-flex">
+                    <div class="wrapper" id="btnlikes">
+                        <div class="radio_group">
+                            <input type="radio" id="like" name="like" value="like" checked>
+                            <label for="like">
+                                <i class="fas fa-thumbs-up"></i>
+                            </label>
+                        </div>
+                        <div class="radio_group">
+                            <input type="radio" id="unlike" value="dislike" name="like">
+                            <label for="like">
+                                <i class="fas fa-thumbs-down"></i>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <p class="card-text m-3"><small id="Likes" class=""><i class="fas fa-thumbs-up"></i> Me Gusta:
+                            54</small></p>
+                    <p class="card-text m-3"><small id="Dislikes" class=""><i class="fas fa-thumbs-down"></i> No Me
+                            Gusta:
+                            21</small></p>
+
+                </div>
+
+            </div>
+            <div class="col  bg4   p-5  shadow  d-flex flex-column align-items-center">
+                <div class="text-white">
+                    <h2>Aqui esta tu Diploma </h2>
+
+                    <button type="button" onclick = "Diploma();"class="btn btn-outline-danger  m-2 w-100"> Ver Diploma</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col  bg7   p-5  shadow ">
+                <div id="comentar">
+                    <div class="mb-3 text-white">
+                        <h2>Comenta el Curso que has terminado</h2>
+                        <textarea class="form-control" id="txt_Comment" rows="3" required></textarea>
+
+
+                    </div>
+                    <button type="submit" class="btn btn-outline-dark w-50 mb-3"> Publicar Comentario </button> <br>
+
+                </div>
+
+
+
+
+                <hr class="style2">
+                <hr class="style2">
+                <br>
+
+                <h3 class="mb-3">Comentarios del Curso</h3>
+
+                <div id="Comentarios">
+
+
+                </div>
+
+
+
+
+
+
+                <hr class="style2">
+                <hr class="style2">
+                <br>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </form>
+
+    </div>
+
+    <!--footer-->
+
+    <footer class="bg3 text-white text-center ">
+
+        <div class="">
+            <img src="img/logo.png" alt="" width="200">
+            <h5>Categorías</h5>
+        </div>
+        <nav class="row ">
+            <ul class="col-4 mt-2 list-unstyled">
+                <button type="button" class="btn btn-dark mt-2 mb-2">Programación</button><br>
+                <button type="button" class="btn btn-dark mt-2 mb-2">Base de Datos</button><br>
+
+            </ul>
+            <ul class="col-4 mt-2 list-unstyled">
+                <button type="button" class="btn btn-dark mt-2 mb-2">Front-End</button><br>
+                <button type="button" class="btn btn-dark mt-2 mb-2">Back-End</button><br>
+
+            </ul>
+            <ul class="col-4 mt-2 list-unstyled">
+                <button type="button" class="btn btn-dark mt-2 mb-2">Aplicaciones</button><br>
+                <button type="button" class="btn btn-dark mt-2 mb-2">POO</button><br>
+
+            </ul>
+        </nav>
+
+
+
+    </footer>
+    <script src="js/Curso/CursoTerminado.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

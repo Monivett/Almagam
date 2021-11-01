@@ -1,0 +1,127 @@
+CREATE DATABASE BDM;
+USE BDM;
+CREATE TABLE Categoria (
+ID INT PRIMARY KEY,
+Nombre VARCHAR(200),
+Descripción VARCHAR (200)
+);
+CREATE TABLE Usuario(
+ID INT PRIMARY KEY,
+Nombre VARCHAR(200),
+Género BIT,
+FechaNacimiento DATETIME,
+Foto BLOB,
+Email VARCHAR(200),
+Contraseña VARCHAR(200),
+FechaRegistro DATETIME,
+FechaMod DATETIME,
+Rol_Escuela BIT,
+Rol_Estudiante BIT
+);
+#DROP TABLE Escuela(
+#Usuario INT,
+#CONSTRAINT Usuario_Escuela_FK FOREIGN KEY (Usuario) REFERENCES Usuario (ID)
+#);
+CREATE TABLE Curso(
+ID INT PRIMARY KEY,
+Título VARCHAR(200),
+Costo FLOAT,
+CantidadNiveles INT,
+Descripción VARCHAR(200),
+Promedio INT,
+Imagen	BLOB,
+Activo Bit,
+Escuela INT,
+Categoría INT,
+CONSTRAINT Escuela_Curso FOREIGN KEY (Escuela) REFERENCES Usuario (ID),
+CONSTRAINT Categoria_Curso FOREIGN KEY (Categoría) REFERENCES Categoria (ID)
+);
+
+CREATE TABLE Nivel(
+NúmeroNivel INT PRIMARY KEY,
+Nombre VARCHAR(200),
+Descripción VARCHAR(200),
+Imagen	BLOB,
+Vídeo BLOB NOT NULL,
+ContendoTexto VARCHAR(200),
+PDF VARCHAR(200),
+Links VARCHAR(200),
+Curso INT,
+CONSTRAINT Curso_Nivel FOREIGN KEY (Curso) REFERENCES Curso (ID)
+);
+
+#DROP TABLE Estudiante(
+#Usuario INT,
+#CONSTRAINT Usuario_Estudiante_FK FOREIGN KEY (Usuario) REFERENCES Usuario (ID)
+#);
+
+CREATE TABLE Avance_Curso_Estudiante (
+ID INT PRIMARY KEY,
+FechaIngreso DATE,
+Estudiante INT,
+Curso INT,
+Nivel INT,
+FechaReciente DATE,
+YaTermino BIT,
+FechaTerminación DATE,
+CONSTRAINT EstudianteFK FOREIGN KEY (Estudiante) REFERENCES Usuario (ID),
+CONSTRAINT CursoFK FOREIGN KEY (Curso) REFERENCES Curso (ID),
+CONSTRAINT NivelFK FOREIGN KEY (Nivel) REFERENCES Nivel (NúmeroNivel)
+);
+
+CREATE TABLE Mensaje(
+Estudiante INT,
+Escuela INT,
+Mensaje VARCHAR (200),
+Fecha DATETIME,
+CONSTRAINT Mensaje_Estudiante FOREIGN KEY (Estudiante) REFERENCES Usuario (ID),
+CONSTRAINT Mensaje_Escuela FOREIGN KEY (Escuela) REFERENCES Usuario (ID)
+);
+
+CREATE TABLE Diploma(
+FechaTerminacion DATE,
+Estudiante INT,
+Escuela INT,
+Curso INT,
+CONSTRAINT Diploma_Estudiante FOREIGN KEY (Estudiante) REFERENCES Usuario (ID),
+CONSTRAINT Escuela_Diploma FOREIGN KEY (Escuela) REFERENCES Usuario (ID),
+CONSTRAINT Curso_Diploma FOREIGN KEY (Curso) REFERENCES Curso (ID)
+);
+
+CREATE TABLE Comentario(
+Megusta BIT,
+Comentario VARCHAR (200),
+Curso INT,
+Estudiante INT,
+CONSTRAINT Curso_Comentario FOREIGN KEY (Curso) REFERENCES Curso (ID),
+CONSTRAINT Estudiante_Comentario FOREIGN KEY (Estudiante) REFERENCES Usuario (ID)
+);
+
+
+CREATE TABLE Pago(
+FormaPago VARCHAR (200),
+Monto FLOAT,
+Curso INT,
+Estudiante INT,
+CONSTRAINT Curso_Pago FOREIGN KEY (Curso) REFERENCES Curso (ID),
+CONSTRAINT Estudiante_Pago FOREIGN KEY (Estudiante) REFERENCES Usuario (ID)
+);
+
+#CREATE TABLE Historial(
+#Progreso INT,
+#Monto FLOAT,
+#Curso INT,
+#Estudiante INT,
+#CONSTRAINT Curso_Historial FOREIGN KEY (Curso) REFERENCES Curso (ID),
+#CONSTRAINT Estudiante_Historial FOREIGN KEY (Estudiante) REFERENCES Usuario (ID),
+#CONSTRAINT Progreso_Historial FOREIGN KEY (Progreso) REFERENCES Avance_Curso_Estudiante (ID)
+#);
+
+CREATE TABLE Ventas(
+Curso INT,
+CantidadAlumnos INT,
+PromedioAlumnos FLOAT,
+TotalIngresos FLOAT,
+FormasPago   VARCHAR(200),
+CONSTRAINT Curso_Venta FOREIGN KEY (Curso) REFERENCES Curso (ID)
+);

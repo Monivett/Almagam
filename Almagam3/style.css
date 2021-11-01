@@ -1,0 +1,37 @@
+:root{
+
+    --dark: #16191c;
+    --dark-x: #1e2126;
+    --light: #ffffff;
+}
+
+body{
+
+    font-family: 'Spartan', sans-serif;
+    font-weight: 300;
+   
+    color: var(--light);
+}
+.bg-dark {background-color: var(--dark) !important}
+.bg-dark-x { background-color: var(--dark-x);}
+
+.label-file {
+    cursor: pointer;
+    color: #158550;
+    font-weight: bold;
+  }
+  .label-file:hover {
+    color: #dde9ec;
+  }
+  
+  
+  .input-file {
+    display: none;
+  }
+
+.form-control, .btn{
+    min-height: 3.125rem ;
+    line-height: initial;
+    
+}
+

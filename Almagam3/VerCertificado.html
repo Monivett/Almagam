@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://kit.fontawesome.com/71ff6f1b84.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <title>Certificado</title>
+</head>
+<style>
+  .body {
+    background: #8D8D8D;
+    background: linear-gradient(to right, #434343, #8D8D8D);
+  }
+
+  .bg {
+    background-color: #000000;
+  }
+
+  .bg2 {
+    background-color: #c2d2e9;
+  }
+
+  .bg3 {
+    background-color: #131313;
+  }
+
+  .bg4 {
+    background-color: #50c59e;
+  }
+
+  .bg5 {
+    background-color: #53b9a8;
+  }
+
+  #perfilU,
+  #perfilM,
+  #btn_iniciar,
+  #btn_cerrar,
+  #btn_registro,
+  #btn_cat,
+  #source {
+    display: none;
+  }
+
+  .Certificado,
+  #btn_descargar , #canvas{
+    margin: auto;
+    display: block;
+  }
+</style>
+<nav class="navbar sticky-top  navbar-dark bg">
+  <div class="container d-flex justify-content-around">
+    <div class="row">
+      <div class="col-auto mt-4 ">
+
+        <img onclick="location.href='Principal.html'" src="img/logo.png" alt="" width="150">
+
+
+      </div>
+      <div class="col-auto mt-3">
+        <button class="btn btn-outline-success " onclick="location.href='ChatLog.html'" type="submit"><i
+            class="fab fa-facebook-messenger m-2 "></i> Mensajes</button>
+      </div>
+      <div class="col-auto mt-3">
+
+        <button class="btn btn-success " onclick="location.href='PerfilUsuario.html'" type="submit"> <i
+            class="fas fa-shopping-basket m-2"></i>Mis
+          Cursos</button>
+      </div>
+
+
+      <div class="col-auto mt-3">
+        <input type="text" class="form-control" id="Buscador" placeholder="Buscar">
+      </div>
+      <div class="col-auto mt-3">
+        <button class="btn btn-success" onclick="BuscarCurso()" type="submit">Buscar</button>
+      </div>
+
+
+
+
+      <div id="BtnPerfil" class="col-auto  m-2 ">
+        <a href="PerfilUsuario.html"><img src="php/PerfilFoto.php" alt="" width="70" class="img-thumbnail">
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+</nav>
+
+<body class="bg-dark">
+  <!--
+
+    <canvas id="canvas" class="img-fluid" height="900px" width="100px"> </canvas>
+    <canvas id="canvas"></canvas>
+  <img id="source" src="img/Certificado-Plantilla.png" 
+       width="300" height="227">
+-->
+<br>
+  <canvas id="canvas" class="img-fluid" width="850" height="627"></canvas>
+  <img id="source" class="Certificado" src="img/Certificado-Plantilla.png" width="500" height="427">
+
+
+  <br>
+  <br>
+
+  </div>
+
+  <button id="btn_descargar" class="btn btn-danger">Descargar</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+
+  <script src="js/Certificado.js"></script>
+
+
+
+</body>
+
+</html>

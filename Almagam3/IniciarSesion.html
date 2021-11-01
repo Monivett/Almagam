@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/71ff6f1b84.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <title>Login</title>
+</head>
+
+<body class="bg-dark">
+    <div class="row g-0">
+        <div class="col-lg-7 ">
+            <div class="mt-auto">
+                <img src="img/3.jpg" alt="" class="w-100">
+            </div>
+        </div>
+        <div class="col-lg-5 d-flex flex-column align-items-end min-vh-100 mt-auto">
+            <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 ">
+                <img src="img/logo.png" alt="" class="w-100">
+            </div>
+            <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
+                <h1 class="font-weight-bold mb-4">Inciar Sesión</h1>
+
+                <form action="" method="POST" id="Login">
+                    <div class="form-group mb-5">
+                        <label for="txt_email font-weight-bold">Correo</label>
+                        <input type="email" class="form-control border-0" id="txt_email" aria-describedby="userHelp"
+                            placeholder="Correo" required>
+
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="exampleInputPassword1 font-weight-bold">Contraseña</label>
+                        <input type="password" class="form-control  border-0" id="txt_pass" placeholder="Contraseña"
+                            required>
+
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="btn btn-outline-success w-100"
+                           >Iniciar Sesion</button>
+                    </div>
+
+                </form>
+
+                <div class="d-flex  justify-content-around mt-auto">
+
+                    <button type="submit" class="btn btn-outline-light flex-grow-1 mr-2"
+                        onclick="location.href='Registro.html'"> Registrarse </button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+
+            <script src="js/Login.js"></script>
+</body>
+
+</html>
+

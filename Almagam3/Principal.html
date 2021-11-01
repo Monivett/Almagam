@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="https://kit.fontawesome.com/71ff6f1b84.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <title>Principal</title>
+
+
+  <style>
+    .body {
+      background: #8D8D8D;
+      background: linear-gradient(to right, #434343, #8D8D8D);
+    }
+
+    .bg {
+      background-color: #000000;
+    }
+
+    .bg2 {
+      background-color: #c2d2e9;
+    }
+
+    .bg3 {
+      background-color: #131313;
+    }
+
+    .bg4 {
+      background-color: #50c59e;
+    }
+
+    .bg5 {
+      background-color: #53b9a8;
+    }
+
+    #perfilU,
+    #perfilM,
+    #btn_iniciar,
+    #btn_cerrar,
+    #btn_registro,
+    #btn_cat {
+      display: none;
+    }
+
+    label:hover {
+      color: #53b9a8;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <nav class="navbar sticky-top  navbar-dark bg">
+    <div class="container d-flex justify-content-around">
+      <div class="row">
+        <div class="col-auto mt-4 ">
+
+          <img onclick="location.href='Principal.html'" src="img/logo.png" alt="" width="150">
+
+
+        </div>
+        <div class="col-auto mt-3">
+          <button id="btn_mensajes" class="btn btn-outline-success " onclick="location.href='ChatLog.html'"
+            type="submit"><i class="fab fa-facebook-messenger m-2 "></i> Mensajes</button>
+        </div>
+        <div class="col-auto mt-3">
+          <button id="btn_registro" class="btn btn-success" onclick="location.href='Registro.html'"
+            type="submit">Registrarse</button>
+          <button id="btn_misCursos" class="btn btn-success " onclick="location.href='PerfilUsuario.html'"
+            type="submit"> <i class="fas fa-shopping-basket m-2"></i>Mis Cursos</button>
+        </div>
+
+        <div class="col-auto mt-3">
+          <input type="text" class="form-control" id="Buscador" placeholder="Buscar">
+        </div>
+        <div class="col-auto mt-3">
+          <button class="btn btn-success" onclick="BuscarCurso()" type="submit">Buscar</button>
+        </div>
+
+        <div class="col-auto ms-auto mt-3 ">
+
+          <button id="btn_cerrar" onclick="location.href='CerrarSesion.php'" class="btn btn-outline-success"
+            type="submit">Cerrar
+            Sesión</button>
+
+
+        </div>
+        <div class="col-auto ms-auto mt-3 ">
+
+          <button id="btn_iniciar" class="btn btn-outline-success" onclick="location.href='IniciarSesion.html'"
+            type="submit">Iniciar Sesión</button>
+
+        </div>
+
+        <div id="BtnPerfil" class="col-auto  m-2 ">
+          <a id="perfilU" href="PerfilUsuario.html"><img src="php/PerfilFoto.php" alt="" width="70"
+              class="img-thumbnail">
+          </a>
+          <a id="perfilM" href="PerfilMaestro.html"><img src="php/PerfilFoto.php" alt="" width="70"
+              class="img-thumbnail">
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <div class="row justify-content-center">
+    <div class="col-3  bg4 m-3   rounded-lg shadow  d-flex flex-column align-items-center ">
+      <div class="card   rounded shadow-lg m-3 " style="width: 20rem;">
+
+        <div id="categorias" class="card-body  justify-content-center text-center ">
+
+        </div>
+        <div class="card-body  justify-content-center text-center ">
+          <button id="btn_cat" type="submit" onclick="location.href='Categoria.html'"
+            class="btn btn-outline-dark w-100 mt-5">Registrar Categoría</button>
+        </div>
+      </div>
+
+      <div class="card   rounded shadow-lg m-3 " style="width: 20rem;">
+
+        <div id="Escuelas" class="card-body  justify-content-center text-center ">
+          <p><b>Escuelas</b> </p>
+
+        </div>
+
+      </div>
+
+      <div class="card   rounded shadow-lg m-3 " style="width: 20rem;">
+
+        <div class="card-body  justify-content-center text-center ">
+          <p><b>Busqueda por fecha</b> </p>
+          <p>Rango de: </p>
+          <input type="date" class="form-control" name="inputDate" id="inputDate" required>
+          <p>Fecha final: </p>
+          <input type="date" class="form-control" name="inputDate" id="inputDate" required>
+
+          <button type="submit" class="btn btn-outline-dark w-100 mt-5">Buscar</button>
+        </div>
+
+      </div>
+      <div class="card   rounded shadow-lg m-3 " style="width: 20rem;">
+
+        <div class="card-body  justify-content-center text-center ">
+          <label onclick="CursosRecientes()" id="emailHelp" class="form-text ">Cursos recientes</label> <br>
+        </div>
+
+      </div>
+
+      <div class="card   rounded shadow-lg m-3 " style="width: 20rem;">
+
+        <div class="card-body  justify-content-center text-center ">
+          <label onclick="MejoresCursos()" id="emailHelp" class="form-text">Mejores cursos</label> <br>
+        </div>
+
+      </div>
+
+      <div class="card   rounded shadow-lg m-3 " style="width: 20rem;">
+
+        <div class="card-body  justify-content-center text-center ">
+          <label onclick="CursosMasVendidos()" id="emailHelp" class="form-text">Cursos más vendidos</label> <br>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+    <div id="cursos" class="col-8 bg5 m-3  rounded-lg shadow">
+
+
+    </div>
+
+
+
+  </div>
+
+
+  <!--footer-->
+
+  <footer class="bg3 text-white text-center ">
+
+    <div class="">
+      <img src="img/logo.png" alt="" width="200">
+      <h5>Categorías</h5>
+    </div>
+    <nav id="footerCat" class="row ">
+
+    </nav>
+  </footer>
+
+  <script src="js/Principal.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
