@@ -26,7 +26,7 @@ function MostrarUser() {
             console.log(obj['Nombre']);
             ID_Usuario = obj['ID'];
             if (data != "[]") {
-                GetAlumnos();
+              
             }
 
 
@@ -200,6 +200,7 @@ function GetCursos() {
             console.log(obj); //Imprimimos el texto
             if (data != "[]") {
 
+                GetAlumnos();
 
 
             }

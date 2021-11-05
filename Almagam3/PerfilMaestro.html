@@ -31,6 +31,9 @@
         .bg3 {
             background-color: #4ec094;
         }
+        .btn{
+            margin-left: 10px;
+        }
     </style>
 </head>
 
@@ -52,9 +55,9 @@
                 </div>
                 <div class="col-auto mt-3">
 
-                    <button class="btn btn-success " type="submit"> <i class="fas fa-shopping-basket m-2"></i>Mis
+                    <button class="btn btn-success " onclick="location.href='PerfilMaestro.html'"  type="submit"> <i class="fas fa-shopping-basket m-2"></i>Mis
                         Cursos</button>
-                </div>
+                    </div>
 
                 <div class="col-auto mt-3">
                     <input type="text" class="form-control" id="Buscador" placeholder="Buscar">
@@ -97,7 +100,7 @@
 
                             <li class="nav-item">
                                 <a class="nav-link " href="#TabCursos2" role="tab" data-bs-toggle="tab">Ventas
-                                    detalle</a>
+                                    de mis cursos</a>
                             </li>
 
 
@@ -155,7 +158,7 @@
                                                     <p class="card-text"><small id="TARJETA" class="text-muted "></small></p>
                                                     <p class="card-text"><small  id="EFECTIVO" class="text-muted "></small></p>
                                                     <p class="card-text"><small id="TRANSFERENCIA" class="text-muted "></small></p>
-
+                                                    <p class="card-text"><small id="PAYPAL" class="text-muted "></small></p>
 
                                                     <h5 id="TOTAL" class="card-text text-dark mb-3">
                                                     </h5>
@@ -171,160 +174,8 @@
                             <!-- ---------------------------------------------------------------------------------------------------- -->
 
                             <div role="tabpanel" class="tab-pane fade " id="TabCursos2">
-                                <div class="card d-inline-flex m-3 " style="width: 100%;">
-                                    <div class="card-body ">
-                                        <div class="row mb-3">
-                 
-                                            <div class="col-md-8">
-                                                <div class="card-body text-center">
-                                                    <h4 class="card-text text-dark mb-3"> Programación Básica C++ </h4>
-                                                    <button type="submit" onclick="location.href='Ventas.html'"
-                                                    class="btn btn-success flex-grow-1 mr-2"> Ver ventas </button>
-                                                </div>
+                             
 
-                                            </div>
-                                        </div>
-
-                                        <!---------------------------------------------------->
-                                        <div class="row text-dark">
-                                            <hr class="style3">
-                                            <br>
-
-                                            <div class="col d-flex justify-content-start">
-                                                <div>
-
-                                                    <p class="card-text"><small class="text-muted ">Mónica Ivette Chapa
-                                                            Rodríguez</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Fecha de inscipcion:
-                                                            09/09/21</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Avance: 4/6</small>
-                                                    </p>
-                                                    <p class="card-text"><small class="text-muted ">Pago:
-                                                            $500.00</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Pago con:
-                                                            Tarjeta</small></p>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <!---------------------------------------------------->
-                                        <div class="row text-dark ">
-                                            <hr class="style3">
-                                            <br>
-
-                                            <div class="col d-flex align-items-center">
-                                                <div>
-
-                                                    <p class="card-text"><small class="text-muted ">Vanessa Giselle
-                                                            Valenciano Hernández</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Fecha de inscipcion:
-                                                            09/09/21</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Avance: 4/6</small>
-                                                    </p>
-                                                    <p class="card-text"><small class="text-muted ">Pago:
-                                                            $500.00</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Pago con:
-                                                            Efectivo</small></p>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                        </div>
-
-
-                                        <div class="text-dark" style="background-color: #4ec094;">
-
-                                            <hr class="style3">
-                                            <br>
-
-                                            <h5 class="card-text text-dark mb-3"> ingreso Total: $1,200.00</h5>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <!-- 
-                                ------------------------------------------------------------------------------ -->
-                                <div class="card d-inline-flex m-3 " style="width: 100%;">
-                                    <div class="card-body ">
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <img class="card-img-top img-thumbnail" src="img/fondoregistro.jpg"
-                                                    alt="Card image cap">
-
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body text-center">
-                                                    <h4 class="card-text text-dark mb-3"> Winapi </h4>
-                                                    <p class="card-text"><small class="text-muted ">Categoria:
-                                                            Programación</small></p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="row text-dark">
-                                            <hr class="style3">
-                                            <br>
-                                            <div class="row text-dark ">
-
-
-
-
-
-
-                                            </div>
-
-
-
-
-                                        </div>
-
-
-                                        <div class="row text-dark ">
-                                            <hr class="style3">
-                                            <br>
-
-                                            <div class="col d-flex align-items-center">
-                                                <div>
-
-                                                    <p class="card-text"><small class="text-muted ">Vanessa Giselle
-                                                            Valenciano Hernández</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Fecha de inscipcion:
-                                                            09/09/21</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Avance: 4/6</small>
-                                                    </p>
-                                                    <p class="card-text"><small class="text-muted ">Pago:
-                                                            $500.00</small></p>
-                                                    <p class="card-text"><small class="text-muted ">Pago con:
-                                                            Efectivo</small></p>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                        </div>
-
-
-                                        <div class="text-dark" style="background-color: #4ec094;">
-
-                                            <hr class="style3">
-                                            <br>
-
-                                            <h5 class=" text-dark text-center"> ingreso Total: $1,200.00</h5>
-
-                                        </div>
-                                    </div>
-                                </div>
 
 
 

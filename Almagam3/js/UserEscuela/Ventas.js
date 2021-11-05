@@ -78,7 +78,7 @@ function GetCategories() {
 
 function GetCursosEscuela() {
     var FoDatos = new FormData(); //Form de HTML
-    FoDatos.append('opc', 6);
+    FoDatos.append('opc', 'I');
     FoDatos.append('ID_Escuela', ID_Usuario);
 
     fetch('php/User.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
@@ -140,6 +140,7 @@ function GetInfoCursoVentas(ID_Curso, i,Nivel) {
             var obj = JSON.parse(Jason);
             console.log(obj); //Imprimimos el texto
 
+            var TipoCobroCurso = obj[0]['TipoCobro'];
 
 
             var div = document.getElementById("fila" + i);
@@ -148,7 +149,12 @@ function GetInfoCursoVentas(ID_Curso, i,Nivel) {
             td.innerHTML = obj[0]['CantidadAlumnos'];
 
             var t2 = document.createElement('td');
-            t2.innerHTML = obj[0]['Avance'] + "/"+ Nivel;
+            if(obj[0]['Avance']!=null){
+                t2.innerHTML = obj[0]['Avance'] + "/"+ Nivel;
+            }else{
+                t2.innerHTML = "0 /"+ Nivel;
+            }
+          
 
             var td3 = document.createElement('td');
 
@@ -159,8 +165,10 @@ function GetInfoCursoVentas(ID_Curso, i,Nivel) {
 
             if (obj[0]['Total'] != null) {
                 td3.innerHTML = obj[0]['Total'];
-            } else {
+            } else if(TipoCobroCurso==0){
                 td3.innerHTML = "Curso gratuito";
+            }else{
+                td3.innerHTML = "$0";
             }
 
 

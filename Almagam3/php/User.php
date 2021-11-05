@@ -1,13 +1,12 @@
 <?php
-//Toma los datos de javascript y los manda a Class_User
+
 require_once 'Class_User.php';
 $user = new User;
 
-//recibe el json y lo tranforma a un arreglo
+
 $postbody = file_get_contents( 'php://input' );
-//Agarra el form que mando
 $datos = json_decode( $postbody, true );
-//Convierte en json los datos
+
 
 //REGISTRO
 if ( $_POST['opc'] == 1 ) {
@@ -19,12 +18,9 @@ if ( $_POST['opc'] == 1 ) {
     $rol = $_POST['rol'];
 
     $file_tmpi = $_FILES['foto']['tmp_name'];
-    // FILE: nombre, tmp_name: dirección, tipo y peso
     $file = file_get_contents( $file_tmpi );
-    //file_get_contents: Agarra el contenido de esa dirección
     $blob = mysqli_real_escape_string( $user->conexion, $file );
-    //
-
+    
     $json = [
         'nombre' => $nombre,
         'correo'=> $correo,
@@ -36,7 +32,7 @@ if ( $_POST['opc'] == 1 ) {
     ];
 
     $pasa = json_encode( $json );
-    //Convierte en json
+   
 
     $result = $user->Registrar( $pasa, $blob );
     echo $result;
@@ -257,6 +253,61 @@ if ( $_POST['opc'] == 'H' ) {
     ];
     $pasa = json_encode( $json );
     $result = $user->PerfilEscuelaVentasTotalCurso( $pasa );
+    echo json_encode( $result );
+}
+//Obtener cursos en base a su escuela
+if ( $_POST['opc'] == 'I' ) {
+    header( 'Content-Type: application/json' );
+    $ID_Escuela = $_POST['ID_Escuela'];
+
+    $json = [
+        'ID_Escuela' => $ID_Escuela
+
+    ];
+
+    $pasa = json_encode( $json );
+    //Convierte en json
+
+    $result = $user->PerfilEscuelaCursos( $pasa );
+    echo json_encode( $result );
+}
+//EDITAR PERFIL SIN FOTO
+if ( $_POST['opc'] == 'J' ) {
+    $id = $_POST['ID'];
+    $nombre = $_POST['nombre'];
+    $correo = $_POST['correo'];
+    $genero = $_POST['genero'];
+    $contrasena = $_POST['contrasena'];
+    $fechanac = $_POST['fechanac'];
+
+    
+
+    $json = [
+        'ID' => $id,
+        'nombre' => $nombre,
+        'correo'=> $correo,
+        'genero'=> $genero,
+        'contrasena'=> $contrasena,
+        'fechanac'=> $fechanac,
+
+    ];
+
+    $pasa = json_encode( $json );
+    //Convierte en json
+
+    $result = $user->EditarPerfilSinFoto( $pasa );
+    echo $result;
+}
+//PERFIL DE ESCUELA ( TOTAL: PAYPAL )
+if ( $_POST['opc'] == 'K' ) {
+
+    $ID_User = $_POST['ID_User'];
+    $json = [
+        'ID_User' => $ID_User
+
+    ];
+    $pasa = json_encode( $json );
+    $result = $user->PerfilEscuelaTotalPaypal( $pasa );
     echo json_encode( $result );
 }
 ?>

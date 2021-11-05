@@ -36,7 +36,7 @@ class Curso extends conexion {
 
         $cat = $datos['cat'];
 
-        $query = "Call Proc_CursoCat( 'I', '$cat');";
+        $query = "Call Proc_CursoCat( 'I', '$cat','0');";
         $verificacion = parent::rowsAfectados( $query );
         //Si se agrego
 
@@ -61,7 +61,7 @@ class Curso extends conexion {
         $datos = json_decode( $json, true );
 
         $IDCurso = $datos['IDCurso'];
-        $query = "Call Proc_CursoCat( 'S', '$IDCurso');";
+        $query = "Call Proc_CursoCat( 'S', '$IDCurso','0');";
         $datos = parent::obtenerDatos( $query );
 
         return ( $datos );
@@ -71,7 +71,7 @@ class Curso extends conexion {
         $datos = json_decode( $json, true );
 
         $IDCurso = $datos['IDCurso'];
-        $query = "Call Proc_Curso( 'A', '$IDCurso', '0','0','0','0','0', '0','0','0','0');";
+        $query = "Call Proc_Curso( 'A', '$IDCurso', '0','0','0','0','0','0', '0','0','0');";
         $datos = parent::obtenerDatos( $query );
 
         return ( $datos );
@@ -96,7 +96,7 @@ class Curso extends conexion {
 
         $IDNivel = $datos['IDNivel'];
 
-        $query = "Call Proc_ArchNivel( 'S', '0', '0','  0 ',' 0','0','$IDNivel');";
+        $query = "Call Proc_ArchNivel( 'S', '0', '0','  0 ',' 0','0','0','$IDNivel');";
         $datos = parent::obtenerDatos( $query );
 
         return ( $datos );
@@ -211,6 +211,116 @@ class Curso extends conexion {
         return ( $datos );
     }
 
+    public function CursosFechas($json) {
+        
+        $datos = json_decode( $json, true );
+
+        $fecha1 = $datos['fecha1'];
+        $fecha2 = $datos['fecha2'];
+
+        $query = "Call Proc_BuscarCursoFecha( 'S', '$fecha1', '$fecha2');";
+        $datos = parent::obtenerDatos( $query );
+
+        return ( $datos );
+    }
+    public function CursosUnaFecha($json) {
+        
+        $datos = json_decode( $json, true );
+
+        $fecha1 = $datos['fecha1'];
+      
+
+        $query = "Call Proc_BuscarCursoFecha( 'A', '$fecha1', '0');";
+        $datos = parent::obtenerDatos( $query );
+
+        return ( $datos );
+    }
+    public function BajaCurso($json) {
+        
+        $datos = json_decode( $json, true );
+
+        $ID_Curso = $datos['ID_Curso'];
+      
+
+        $query = "Call Proc_Curso( 'D', '$ID_Curso', '0','0','0','0','0', '0','0','0','0');";
+        $verificacion = parent::rowsAfectados( $query );
+        
+
+        if ( $verificacion == 1 ) {
+            $success = 'success';
+            return  1 ;
+        } else {
+            $success = 'fail';
+            return  parent::Error();
+        }
+
+        
+    }
+    public function ActivarCurso($json) {
+        
+        $datos = json_decode( $json, true );
+
+        $ID_Curso = $datos['ID_Curso'];
+      
+
+        $query = "Call Proc_Curso( 'K', '$ID_Curso', '0','0','0','0','0', '0','0','0','0');";
+        $verificacion = parent::rowsAfectados( $query );
+        
+
+        if ( $verificacion == 1 ) {
+            $success = 'success';
+            return  1 ;
+        } else {
+            $success = 'fail';
+            return  parent::Error();
+        }
+
+        
+    }
+    public function EditarCursos ( $json, $blob ) {
+
+        $datos = json_decode( $json, true );
+        $ID_Curso = $datos['ID_Curso'];
+        $titulo = $datos['titulo'];
+        $descripcion = $datos['descripcion'];
+     
+   
+
+        $query = "Call Proc_Curso( 'U',' $ID_Curso',' $titulo', '0', '  0',0,' 0',' $descripcion ', 0, '$blob', ' 0 ');";
+        $verificacion = parent::rowsAfectados( $query );
+        //Si se agrego
+
+        if ( $verificacion == 1 ) {
+            $success = 'success';
+            return  1 ;
+        } else {
+            $success = 'fail';
+            return  parent::Error();
+        }
+        ;
+    }
+    public function EditarCursosSinFoto ( $json ) {
+
+        $datos = json_decode( $json, true );
+        $ID_Curso = $datos['ID_Curso'];
+        $titulo = $datos['titulo'];
+        $descripcion = $datos['descripcion'];
+     
+   
+
+        $query = "Call Proc_Curso( 'U',' $ID_Curso',' $titulo', '0', '  0',0,' 0',' $descripcion ', 0, 'null', ' 0 ');";
+        $verificacion = parent::rowsAfectados( $query );
+        //Si se agrego
+
+        if ( $verificacion == 1 ) {
+            $success = 'success';
+            return  1 ;
+        } else {
+            $success = 'fail';
+            return  parent::Error();
+        }
+        ;
+    }
 }
 
 ?>

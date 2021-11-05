@@ -2,7 +2,7 @@ const formularioChat = document.getElementById('Enviar');
 $(document).ready(function () {
 
     GetRol();
-
+    GetCategories();
 
 });
 var ID_Usuario;
@@ -37,7 +37,7 @@ function GetRol() {
                 GetEstudiantes();
                 document.getElementById("perfilU").style.display = 'none';
                 document.getElementById("perfilM").style.display = 'block';
-
+                document.getElementById("btn_misCursos").onclick =  function() {location.href = "PerfilMaestro.html";}
             }
             if (Jason != 0) { //Si esta logeado
                 document.getElementById("BtnPerfil").style.display = 'block';
@@ -238,6 +238,48 @@ function GetChats(Recibidor) {
                 }
 
             }
+
+        })
+
+}
+function GetCategories() {
+    var FoDatos = new FormData(); //Form de HTML
+    FoDatos.append('opc', 2);
+
+    fetch('php/Category.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
+        .then(response => {
+            return response.text(); //Regresa tipo de dato texto
+        })
+        .then(data => {
+            console.log(data);
+            var Jason = data;
+            var obj = JSON.parse(Jason);
+            console.log(obj); //Imprimimos el texto
+
+
+            //FOOTER
+            var footer = document.getElementById("footerCat");
+
+            //MOSTRAR LAS CATEGORIAS
+            for (var i in obj) {
+
+                //FOOTER
+
+                var ul = document.createElement('ul');
+                ul.setAttribute("class", "col-4 mt-2 list-unstyled");
+
+                var btn = document.createElement('button');
+                btn.setAttribute("type", "button");
+                btn.setAttribute("class", "btn btn-dark mt-2 mb-2");
+                btn.innerHTML = obj[i]['Nombre'];
+                footer.appendChild(btn);
+                var br = document.createElement('br');
+                footer.appendChild(ul);
+                ul.appendChild(btn);
+
+
+            }
+
 
         })
 

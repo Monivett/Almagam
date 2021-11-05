@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="style2.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/71ff6f1b84.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <title>Editar Curso </title>
+</head>
+
+
+<style>
+    .bg {
+
+        background-color: rgb(39, 54, 47);
+    }
+
+
+    .bg2 {
+
+        background-color: rgb(80, 167, 125);
+    }
+</style>
+
+<body class="bg2 text-white">
+    <form  id="EditarCurso" method="POST" enctype="multipart/form-data" >
+        <div class="row g-0">
+
+            <div class="col-lg-3 d-flex flex-column  min-vh-100 mt-auto col-auto">
+
+            </div>
+
+            <div class="col-lg-6 d-flex flex-column bg  min-vh-100 mt-5 mb-5">
+
+                <div id="CrearCurso" class="px-lg-6 py-lg-4 p-4 w-100 align-self-center mb-5">
+                    <h1 class="font-weight-bold mb-3 mt-2">Editar Curso</h1>
+
+
+                    <div class="form-group mb-5 ">
+                        <label for="formGroupExampleInput font-weight-bold">Nombre para el Curso</label>
+                        <input type="text" class="form-control  border-0" id="inputName" placeholder="Nombre" required>
+                    </div>
+                    <div id="Checkcat" class="mb-5">
+                        <label class="my-1 mb-2" for="inlineFormCustomSelectPref">Elija las Categorias del Curso
+                        </label>
+                        <div class="form-check">
+
+                        </div>
+
+                    </div>
+                    <div class="mb-5 text-white mt-3">
+                        <label for="formGroupExampleInput font-weight-bold">Descripcion del Curso</label>
+                        <textarea class="form-control" id="inputDesc" rows="3" required></textarea>
+                    </div>
+            
+                    <br>
+                   
+                    <div class="form-group mb-2 mt-5 text-center">
+
+
+
+                        <label id="FotoPerfilLabel" for="file" class="label-file">Foto Para el Curso </label>
+                        <hr class="style4">
+                        <input id="file" class="input-file" type="file" >
+                    </div>
+
+
+                    <div class="mt-auto" id="usuarioFoto">
+                        <img src="img/4.jpg" alt="" class="w-100">
+                    </div>
+
+
+                    <hr class="style4">
+
+                    <div class="d-flex  justify-content-around  m-5">
+                        <button type="submit" class="btn btn-primary  mr-2"> Siguiente</button>
+
+                    </div>
+
+    </form>
+    </div>
+
+
+
+
+
+    </div>
+
+
+    <div class="col-lg-2 d-flex flex-column   mt-auto col-auto">
+
+    </div>
+
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <script src="js/Curso/EditarCurso.js"></script>
+
+
+
+
+</body>
+
+</html>

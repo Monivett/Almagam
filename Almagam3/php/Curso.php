@@ -58,7 +58,7 @@ if ( $_POST['opc'] == 2 ) {
     echo $result;
 }
 
-//VER CURSO
+//VER CURSOS
 if ( $_POST['opc'] == 3 ) {
 
     $result = $curso -> getCursos();
@@ -162,11 +162,11 @@ if ( $_POST['opc'] == 'C' ) {
 }
 //VER COMENTARIOS DEL CURSO
 if ( $_POST['opc'] == 'A' ) {
- 
+
     $ID_Curso = $_POST['ID_Curso'];
 
     $json = [
-      
+
         'ID_Curso' => $ID_Curso
 
     ];
@@ -177,11 +177,11 @@ if ( $_POST['opc'] == 'A' ) {
 }
 //VER LIKES DEL CURSO
 if ( $_POST['opc'] == 'B' ) {
- 
+
     $ID_Curso = $_POST['ID_Curso'];
 
     $json = [
-      
+
         'ID_Curso' => $ID_Curso
 
     ];
@@ -192,11 +192,11 @@ if ( $_POST['opc'] == 'B' ) {
 }
 //VER DISLIKES DEL CURSO
 if ( $_POST['opc'] == 'D' ) {
- 
+
     $ID_Curso = $_POST['ID_Curso'];
 
     $json = [
-      
+
         'ID_Curso' => $ID_Curso
 
     ];
@@ -241,5 +241,109 @@ if ( $_POST['opc'] == 'H' ) {
     $result = $curso -> CursosMasVendidos();
     echo json_encode( $result );
 
+}
+//VER CURSOS RANGO DE FECHAS
+if ( $_POST['opc'] == 'I' ) {
+    $fecha1 = $_POST['fecha1'];
+    $fecha2 = $_POST['fecha2'];
+    $json = [
+
+        'fecha1' => $fecha1,
+        'fecha2' => $fecha2,
+
+    ];
+    $data = json_encode( $json );
+    $result = $curso -> CursosFechas( $data );
+    echo json_encode( $result );
+
+}
+//VER CURSOS UNA FECHA
+if ( $_POST['opc'] == 'J' ) {
+    $fecha1 = $_POST['fecha1'];
+
+    $json = [
+
+        'fecha1' => $fecha1
+
+    ];
+    $data = json_encode( $json );
+    $result = $curso -> CursosUnaFecha( $data );
+    echo json_encode( $result );
+
+}
+//DAR DE BAJA CURSO
+if ( $_POST['opc'] == 'K' ) {
+    $ID_Curso = $_POST['ID_Curso'];
+
+    $json = [
+
+        'ID_Curso' => $ID_Curso
+
+    ];
+    $data = json_encode( $json );
+    $result = $curso -> BajaCurso( $data );
+    echo json_encode( $result );
+
+}
+//ACTIVAR CURSO
+if ( $_POST['opc'] == 'L' ) {
+    $ID_Curso = $_POST['ID_Curso'];
+
+    $json = [
+
+        'ID_Curso' => $ID_Curso
+
+    ];
+    $data = json_encode( $json );
+    $result = $curso -> ActivarCurso( $data );
+    echo json_encode( $result );
+
+}
+//EDITAR  CURSO
+if ( $_POST['opc'] == 'M' ) {
+    $ID_Curso = $_POST['ID_Curso'];
+    $titulo = $_POST['titulo'];
+    $descripcion = $_POST['descripcion'];
+  
+
+
+    $file_tmpi = $_FILES['foto']['tmp_name'];
+    // FILE: nombre, tmp_name: dirección, tipo y peso
+    $file = file_get_contents( $file_tmpi );
+    //file_get_contents: Agarra el contenido de esa dirección
+    $blob = mysqli_real_escape_string( $curso->conexion, $file );
+    //
+
+    //Convertimos los datos en un json
+    $json = [
+        'ID_Curso' => $ID_Curso,
+        'titulo' => $titulo,
+        'descripcion'=> $descripcion,
+      
+    ];
+
+    $data = json_encode( $json );
+
+    $result = $curso->EditarCursos( $data, $blob );
+    echo $result;
+}
+//EDITAR  CURSO
+if ( $_POST['opc'] == 'N' ) {
+    $ID_Curso = $_POST['ID_Curso'];
+    $titulo = $_POST['titulo'];
+    $descripcion = $_POST['descripcion'];
+   
+    //Convertimos los datos en un json
+    $json = [
+        'ID_Curso' => $ID_Curso,
+        'titulo' => $titulo,
+        'descripcion'=> $descripcion,
+       
+    ];
+
+    $data = json_encode( $json );
+
+    $result = $curso->EditarCursosSinFoto( $data );
+    echo $result;
 }
 ?>

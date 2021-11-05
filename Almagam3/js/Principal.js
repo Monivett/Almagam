@@ -1,3 +1,4 @@
+const formularioFecha = document.getElementById('BuscarFecha');
 $(document).ready(function () {
     getParameters();
     GetCategories();
@@ -39,6 +40,7 @@ function GetRol() {
                 document.getElementById("perfilU").style.display = 'none';
                 document.getElementById("perfilM").style.display = 'block';
                 document.getElementById("btn_cat").style.display = 'block';
+                document.getElementById("btn_misCursos").onclick =  function() {location.href = "PerfilMaestro.html";}
             }
             if (Jason != 0) { //Si esta logeado
                 document.getElementById("BtnPerfil").style.display = 'block';
@@ -687,6 +689,105 @@ function CursosMasVendidos() {
         })
 
 }
+
+//FILTRA POR FECHAS
+formularioFecha.addEventListener("submit", e => {
+
+
+
+    var fecha1 = document.getElementById('inputDate').value;
+    var fecha2 = document.getElementById('inputDate2').value;
+
+
+
+    e.preventDefault();
+
+
+    var FoDatos = new FormData(); //Form artificial de HTML
+if(fecha2!=""){
+    FoDatos.append('fecha1', fecha1);
+    FoDatos.append('fecha2', fecha2);
+
+    FoDatos.append('opc', 'I');
+}else{
+    FoDatos.append('fecha1', fecha1);
+   
+
+    FoDatos.append('opc', 'J');
+}
+    
+
+    fetch('php/Curso.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
+        .then(response => {
+            return response.text(); //Regresa tipo de dato texto
+        })
+        .then(data => {
+            console.log(data);
+            var Jason = data;
+            var obj = JSON.parse(Jason);
+            console.log(obj); //Imprimimos el texto
+
+
+            //Obtenemos el id del div de los cursos
+            var div = document.getElementById("cursos");
+            $("#cursos").empty();
+            for (var i in obj) {
+
+                var div2 = document.createElement('div');
+                div2.setAttribute("class", "card d-inline-flex rounded shadow-lg m-3");
+                div2.setAttribute("style", "width: 18rem;");
+
+                var img = document.createElement('img');
+                img.setAttribute("class", "card-img-top");
+                img.setAttribute("src", "php/CursosFoto.php?id=" + obj[i]['ID']);
+                img.setAttribute("alt", "Card image cap");
+
+                var h5 = document.createElement('h5');
+                h5.setAttribute("class", "card-title text-dark");
+                h5.innerHTML = obj[i]['Título'];
+
+                var div3 = document.createElement('div');
+                div3.setAttribute("class", "card-body align-items-end");
+
+                var small = document.createElement('small');
+                small.setAttribute("class", "text-muted");
+                small.setAttribute("id", "cursoCat" + i);
+                GetCategoriaCurso(obj[i]['ID'], i);
+
+                var p = document.createElement('p');
+                p.setAttribute("class", "card-text");
+                small.setAttribute("id", "cursoCat" + i);
+
+                var p2 = document.createElement('p');
+                p2.setAttribute("class", "card-text text-dark");
+                p2.innerHTML = obj[i]['Descripción'];
+
+
+                var btn = document.createElement('p');
+                btn.setAttribute("class", "btn btn-success");
+                btn.setAttribute("onclick", "getIdFormA(this.id);");
+                btn.setAttribute("id", obj[i]['ID']);
+                btn.innerHTML = "Ver curso";
+
+                div.appendChild(div2);
+                div2.appendChild(img);
+                div2.appendChild(div3);
+                div3.appendChild(h5);
+                div3.appendChild(small);
+                small.appendChild(p);
+                div3.appendChild(p2);
+                if (rol == 0) {
+                    div3.appendChild(btn);
+                }
+
+            }
+
+
+        })
+
+
+});
+
 //BUSQUEDA DE CURSOS
 function BuscarCurso() {
     var BuscarCurso = document.getElementById('Buscador').value;

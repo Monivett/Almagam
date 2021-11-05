@@ -11,6 +11,7 @@ var ID_Usuario;
 var Precio;
 var Escuela;
 var TipoCobro;
+var NombreCurso;
 function getParameters() {
     var parameters = new Object();
     var parts = window.location.search.substring(1).split('\x26');
@@ -64,7 +65,7 @@ function GetCursos() {
             TipoCobro = obj[0]["TipoCobro"];
             Precio = obj[0]["Costo"];
             Escuela = obj[0]["Escuela"];
-
+            NombreCurso = obj[0]["Título"];
             document.getElementById("cursoNombre").innerHTML = "Curso: " + obj[0]["Título"];
             GetCategoriaCurso(obj[0]["ID"]);
 
@@ -223,4 +224,87 @@ function Acrualiza() {
 
         })
 
+}
+
+//BOTÓN DE PAYPAL
+paypal.Button.render({
+    env: 'sandbox', // sandbox | production
+    style: {
+        label: 'generic',  // checkout | credit | pay | buynow | generic
+        size: 'responsive', // small | medium | large | responsive
+        shape: 'pill',   // pill | rect
+        color: 'silver'   // gold | blue | silver | black
+    },
+
+    // PayPal Client IDs - replace with your own
+    // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+    client: {
+        sandbox: 'AcPlxVATZZalGCXCsVeps0kExlLrDvYixvdyB0yfKPhecrr9J0cFZRk9T9gIj5KfeN9lXMLo0kHp_YKR',
+        production: 'AVlu62fU0mW0d5pJqs_7DJyDsSlU93YD49rp0fF0Zz7kwaE_NzRHUziLmCeCEaqjOh5s8qtyB_4NIELA'
+    },
+
+    // Wait for the PayPal button to be clicked
+
+    payment: function (data, actions) {
+        return actions.payment.create({
+            payment: {
+                transactions: [
+                    {
+                        amount: { total: Precio, currency: 'MXN' },
+                        description: "Comprar el curso: "+ NombreCurso,
+                        custom: "Codigo"
+                    }
+                ]
+            }
+        });
+    },
+
+    // Wait for the payment to be authorized by the customer
+
+    onAuthorize: function (data, actions) {
+        return actions.payment.execute().then(function () {
+            console.log(data);
+            PagarConPaypal();
+          
+           // window.location = "verificador.php?paymentToken=" + data.paymentToken + "&paymentID=" + data.paymentID;
+        });
+    }
+
+}, '#paypal-button-container');
+
+
+
+
+function PagarConPaypal(){
+    var FoDatos = new FormData(); //Form artificial de HTML
+
+    FoDatos.append('ID_Curso', ID_Curso);
+    FoDatos.append('Precio', Precio);
+    FoDatos.append('formaPago', 'Paypal');
+    FoDatos.append('Escuela', Escuela);
+    FoDatos.append('Estudiante', ID_Usuario);
+    FoDatos.append('opc', 1);
+
+    fetch('php/Pago.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
+        .then(response => {
+            return response.text(); //Regresa tipo de dato texto
+        })
+        .then(data => {
+            console.log(data); //Imprimimos el texto
+            if (data == 1) {
+                alert("Se ha pagado el curso");
+                if(TipoCobro==0){ //SI EL COBRO ES POR CURSO
+                    Inscribirse();
+                }else{
+                    Acrualiza();
+                }
+              
+
+            } else {
+                alert("No se pudo realizar el pago");
+            }
+
+
+        })
 }

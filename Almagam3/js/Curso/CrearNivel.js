@@ -161,7 +161,7 @@ function RegistrarNivel(i) {
         .then(data => {
             console.log(data);
             if (data == 1) {
-                console.log("Se ha registrado el nivel correctamente" + i);
+                console.log("Se ha registrado el nivel"+ i+" correctamente");
                 document.getElementById('Nivel'+i).style.display = 'none';
                 if (i == 1) { //Si es nivel 1
 
@@ -224,7 +224,7 @@ function RegistrarNivel(i) {
                 }
 
 
-                alert("Se ha registrado el nivel correctamente" + i);
+                alert("Se ha registrado el nivel "+ i+" correctamente");
 
             } else {
                 alert("No se pudo registrar el nivel " + i);

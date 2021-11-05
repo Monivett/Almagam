@@ -94,8 +94,32 @@ class User extends conexion {
         //Si se agrego
 
         if ( $verificacion == 1 ) {
-            $success = 'success';
+            $success = 1;
             return $success;
+        } else {
+            $success = 'fail';
+            return  parent::Error();
+        }
+        ;
+    }
+    public function EditarPerfilSinFoto ( $json ) {
+
+        $datos = json_decode( $json, true );
+        $id = $datos['ID'];
+        $nombre = $datos['nombre'];
+        $correo = $datos['correo'];
+        $genero = $datos['genero'];
+        $contrasena = $datos['contrasena'];
+        $fechanac = $datos['fechanac'];
+
+        $query = "Call Proc_Usuario( 'U', '$id', '$nombre',$genero,'$fechanac',
+        '0', '$correo','$contrasena','0');";
+        $verificacion = parent::rowsAfectados( $query );
+        //Si se agrego
+
+        if ( $verificacion == 1 ) {
+            $success = 'success';
+            return 1;
         } else {
             $success = 'fail';
             return  parent::Error();
@@ -123,7 +147,7 @@ class User extends conexion {
         $datos = json_decode( $json, true );
 
         $ID_Escuela = $datos['ID_Escuela'];
-        $query = "Call Proc_CursoCat( 'B','$ID_Escuela');";
+        $query = "Call Proc_CursoCat( 'B','$ID_Escuela','0');";
         $datos = parent::obtenerDatos( $query );
 
         return ( $datos );
@@ -208,7 +232,15 @@ class User extends conexion {
 
         return ( $datos );
     }
+    public function PerfilEscuelaTotalPaypal( $json ) {
+        $datos = json_decode( $json, true );
 
+        $ID_User = $datos['ID_User'];
+        $query = "Call Proc_Perfil( 'I', '   $ID_User');";
+        $datos = parent::obtenerDatos( $query );
+
+        return ( $datos );
+    }
     public function PerfilEscuelaVentasDetalle( $json ) {
         $datos = json_decode( $json, true );
 
@@ -224,6 +256,15 @@ class User extends conexion {
 
         $ID_User = $datos['ID_User'];
         $query = "Call Proc_Perfil( 'H', '   $ID_User');";
+        $datos = parent::obtenerDatos( $query );
+
+        return ( $datos );
+    }
+    public function PerfilEscuelaCursos( $json ) {
+        $datos = json_decode( $json, true );
+
+        $ID_Escuela = $datos['ID_Escuela'];
+        $query = "Call Proc_CursoCat( 'C','$ID_Escuela','0');";
         $datos = parent::obtenerDatos( $query );
 
         return ( $datos );

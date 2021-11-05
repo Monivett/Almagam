@@ -404,8 +404,9 @@ function ActualizarFecha() {
 //COMENTARIO
 
 formularioComentario.addEventListener("submit", e => {
-
-
+    e.preventDefault();
+    var opcion = confirm("¿Seguro que quiere publicar ese comentario?");
+    if (opcion == true) {
 
     var comentario = document.getElementById('txt_Comment').value;
     var like = $('input:radio[name=like]:checked').val();
@@ -417,28 +418,29 @@ formularioComentario.addEventListener("submit", e => {
         like = 0;
     }
 
-    e.preventDefault();
+ 
 
-    var FoDatos = new FormData(); //Form artificial de HTML
-
+    var FoDatos = new FormData(); 
     FoDatos.append('comentario', comentario);
     FoDatos.append('like', like);
     FoDatos.append('ID_Estudiante', ID_Usuario);
     FoDatos.append('ID_Curso', ID_Curso);
     FoDatos.append('opc', 'C');
 
-    fetch('php/Curso.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
+    fetch('php/Curso.php', { method: "POST", body: FoDatos }) 
         .then(response => {
             return response.text(); //Regresa tipo de dato texto
         })
         .then(data => {
-            console.log(data); //Imprimimos el texto
+            console.log(data);
           
                 alert("Gracias por su opinión");
                 GetComentariosUser();
                 GetComentarios();
+                GetLikes();
+                GetDisikes();
         })
-
+    }
 
 });
 

@@ -1,6 +1,6 @@
 //Solo validar contraseña y fecha
-const formularioRegistro = document.getElementById('Registro'); 
-const inputs = document.querySelectorAll('input'); 
+const formularioRegistro = document.getElementById('Registro');
+const inputs = document.querySelectorAll('input');
 
 //VARIABLES PARA LOS ERRORES 
 var FechaError = new Boolean(true);
@@ -127,27 +127,84 @@ inputs.forEach((input) => { //POR CADA INPUT EJECUTA LA FUNCIÓN
 
 });
 
+//MOSTRAR LA FOTO
 document.getElementById('file').onchange = function (e) {//FUNCIÓN PARA PREVISUALIZAR LA IMAGEN
+
     let reader = new FileReader(); //Crea un obj para almacenar la imagen
     reader.readAsDataURL(e.target.files[0]); //Pasamos las propiedades de la imagen
 
-    reader.onload = function () {//Cuando se cargue la imagen
-        let preview = document.getElementById('usuarioFoto'); //Relacion con el div usuario
-        Image = document.createElement('img');
-        Image.src = reader.result;//Accedemos a la propiedad del img
-        //Cambiamos el tamaño
-        Image.style.width = "700px";
-        Image.style.height = "600px";
-        preview.innerHTML = '';
-        preview.append(Image);
-    };
+    var fileName = this.files[0].name;
+    var fileSize = this.files[0].size;
+
+    if (fileSize > 50000000) {
+        alert('El archivo es muy pesado');
+        this.value = '';
+        this.files[0].name = '';
+    } else {
+        // recuperamos la extensión del archivo
+        var ext = fileName.split('.').pop();
+
+        // Convertimos en minúscula porque 
+        // la extensión del archivo puede estar en mayúscula
+        ext = ext.toLowerCase();
+
+        // console.log(ext);
+        switch (ext) {
+            case 'png':
+
+                reader.onload = function () {//Cuando se cargue la imagen
+                    let preview = document.getElementById('usuarioFoto'); //Relacion con el div usuario
+                    Image = document.createElement('img');
+                    Image.src = reader.result;//Accedemos a la propiedad del img
+                    //Cambiamos el tamaño
+                    Image.style.width = "550px";
+                    Image.style.height = "550px";
+                    preview.innerHTML = '';
+                    preview.append(Image);
+                };
+                break;
+            case 'jpg':
+
+                reader.onload = function () {//Cuando se cargue la imagen
+                    let preview = document.getElementById('usuarioFoto'); //Relacion con el div usuario
+                    Image = document.createElement('img');
+                    Image.src = reader.result;//Accedemos a la propiedad del img
+                    //Cambiamos el tamaño
+                    Image.style.width = "550px";
+                    Image.style.height = "550px";
+                    preview.innerHTML = '';
+                    preview.append(Image);
+                };
+                break;
+            case 'jpeg':
+
+                reader.onload = function () {//Cuando se cargue la imagen
+                    let preview = document.getElementById('usuarioFoto'); //Relacion con el div usuario
+                    Image = document.createElement('img');
+                    Image.src = reader.result;//Accedemos a la propiedad del img
+                    //Cambiamos el tamaño
+                    Image.style.width = "550px";
+                    Image.style.height = "550px";
+                    preview.innerHTML = '';
+                    preview.append(Image);
+                }; break;
+            default:
+                alert('Formato incorrecto para la imagen');
+                this.value = ''; // reset del valor
+                this.files[0].name = '';
+        }
+    }
+
+
 }
 
 
 
 formularioRegistro.addEventListener("submit", e => {
 
-
+    if ($("#file")[0].files[0] == undefined) {
+        alert("No se ha seleccionado una foto válida")
+    }
 
     var nombre = document.getElementById('inputName').value;
     var correo = document.getElementById('inputEmail').value;
@@ -192,8 +249,11 @@ formularioRegistro.addEventListener("submit", e => {
                     window.location.href = "IniciarSesion.html";
 
 
-                } else {
-                    alert("Error: El correo debe de ser único");
+                } else if (data == "Duplicate entry '" + correo + "' for key 'Email'") {
+                    alert("Error: Ya existe un usuario con este correo");
+                }
+                else {
+                    alert("Error: No se pudo registrar");
                 }
 
 

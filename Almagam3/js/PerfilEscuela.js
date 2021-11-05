@@ -26,6 +26,7 @@ function MostrarUser() {
                 GetTotalVentas();
                 GetVentasEfectivo();
                 GetVentasTransferencia();
+                GetVentasPaypal();
                 GetVentasTarjeta();
             }
             document.getElementById("name").innerHTML = obj['Nombre'];
@@ -82,7 +83,7 @@ function GetCategories() {
 
 function GetCursosEscuela(ID_Escuela) {
     var FoDatos = new FormData(); //Form de HTML
-    FoDatos.append('opc', 6);
+    FoDatos.append('opc', 'I');
     FoDatos.append('ID_Escuela', ID_Escuela);
 
     fetch('php/User.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
@@ -101,7 +102,7 @@ function GetCursosEscuela(ID_Escuela) {
             $("#TabCursos2").empty();
             for (var i in obj) {
 
-            
+
                 var div1 = document.createElement('div');
                 div1.setAttribute("class", "card d-inline-flex m-3");
                 div1.setAttribute("style", "width: 100%;");
@@ -129,8 +130,11 @@ function GetCursosEscuela(ID_Escuela) {
                 btn.innerHTML = "Ver ventas";
                 btn.setAttribute("onclick", "getIdFormA(this.id);");
                 btn.setAttribute("id", obj[i]['ID']);
-                
-        
+
+
+
+
+
                 div.appendChild(div1);
                 div1.appendChild(div2);
                 div2.appendChild(div3);
@@ -138,9 +142,31 @@ function GetCursosEscuela(ID_Escuela) {
                 div4.appendChild(div5);
                 div5.appendChild(h4);
                 div5.appendChild(btn);
-              
 
-         
+                if (obj[i]['Activo'] == 1) {
+                    var btn2 = document.createElement('btn');
+                    btn2.setAttribute("class", "btn btn-danger flex-grow-2 mr-3");
+                    btn2.innerHTML = "Dar de baja";
+                    btn2.setAttribute("onclick", "BajaCursos(" + obj[i]['ID'] + ", "+i+ ");");
+                    btn2.setAttribute("id", 'baja'+i);
+                    div5.appendChild(btn2);
+                } else {
+                    var btn2 = document.createElement('btn');
+                    btn2.setAttribute("class", "btn btn-primary flex-grow-2 mr-3");
+                    btn2.innerHTML = "Activar Curso";
+                    btn2.setAttribute("onclick", "ActivarCursos(" + obj[i]['ID'] + ", "+i+");");
+                    btn2.setAttribute("id", 'baja'+i);
+                    div5.appendChild(btn2);
+                }
+                var btn3 = document.createElement('btn');
+                btn3.setAttribute("class", "btn btn-dark flex-grow-2 mr-3");
+                btn3.innerHTML = "Editar Curso";
+                btn3.setAttribute("onclick", "Editar(" + obj[i]['ID']+");");
+                btn3.setAttribute("id", 'baja'+i);
+                div5.appendChild(btn3);
+
+
+
 
 
             }
@@ -167,12 +193,12 @@ function GetTotalVentas() {
 
 
             var total = document.getElementById("TOTAL");
-            if( obj[0]["Total"]!=null){
+            if (obj[0]["Total"] != null) {
                 total.innerHTML = "Total Ingreso por todos los Cursos: " + obj[0]["Total"];
-            }else{
+            } else {
                 total.innerHTML = "Total Ingreso por todos los Cursos: $0";
             }
-          
+
 
 
         })
@@ -195,12 +221,12 @@ function GetVentasEfectivo() {
 
 
             var total = document.getElementById("EFECTIVO");
-            if( obj[0]["Total"]!=null){
+            if (obj[0]["Total"] != null) {
                 total.innerHTML = "Total de Pago Con Efectivo: " + obj[0]["Total"];
-            }else{
+            } else {
                 total.innerHTML = "Total de Pago Con Efectivo: $0";
             }
-          
+
 
 
         })
@@ -223,12 +249,40 @@ function GetVentasTransferencia() {
 
 
             var total = document.getElementById("TRANSFERENCIA");
-            if( obj[0]["Total"]!=null){
+            if (obj[0]["Total"] != null) {
                 total.innerHTML = "Total de Pago Con Transferencia: " + obj[0]["Total"];
-            }else{
+            } else {
                 total.innerHTML = "Total de Pago Con Transferencia:  $0";
             }
-          
+
+
+
+        })
+}
+function GetVentasPaypal() {
+    var FoDatos = new FormData(); //Form de HTML
+    FoDatos.append('opc', 'K');
+    FoDatos.append('ID_User', ID_Usuario);
+
+    fetch('php/User.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
+        .then(response => {
+            return response.text(); //Regresa tipo de dato texto
+        })
+        .then(data => {
+            console.log(data);
+            var Jason = data;
+            var obj = JSON.parse(Jason);
+            console.log(obj); //Imprimimos el texto
+
+
+
+            var total = document.getElementById("PAYPAL");
+            if (obj[0]["Total"] != null) {
+                total.innerHTML = "Total de Pago Con Paypal: " + obj[0]["Total"];
+            } else {
+                total.innerHTML = "Total de Pago Con Paypal:  $0";
+            }
+
 
 
         })
@@ -251,12 +305,12 @@ function GetVentasTarjeta() {
 
 
             var total = document.getElementById("TARJETA");
-            if( obj[0]["Total"]!=null){
+            if (obj[0]["Total"] != null) {
                 total.innerHTML = "Total de Pago Con Tarjeta: " + obj[0]["Total"];
-            }else{
+            } else {
                 total.innerHTML = "Total de Pago Con Tarjeta: $0";
             }
-          
+
 
 
         })
@@ -270,8 +324,96 @@ function BuscarCurso() {
 //CLICK AL BOTON DE VER CURSO
 function getIdFormA(ID_Curso) {
 
-    
-                window.location.href = "VentasDetalle.html?id=" + ID_Curso;
-      
+
+    window.location.href = "VentasDetalle.html?id=" + ID_Curso;
+
+
+}
+//CLICK AL BOTON DE DAR DE BAJA CURSO
+function BajaCursos(ID_Curso,i) {
+
+    var opcion = confirm("¿Seguro que quiere dar de baja el curso?");
+    if (opcion == true) {
+        var FoDatos = new FormData(); //Form de HTML
+        FoDatos.append('opc', 'K');
+        FoDatos.append('ID_Curso', ID_Curso);
+
+        fetch('php/Curso.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
+            .then(response => {
+                return response.text(); //Regresa tipo de dato texto
+            })
+            .then(data => {
+                console.log(data);
+                var Jason = data;
+                var obj = JSON.parse(Jason);
+                console.log(obj); //Imprimimos el texto
+                if (data == 1) {
+                    alert("Se ha dado de baja el curso");
+                    var btn = document.getElementById('baja'+i);
+                    btn.innerHTML = "Activar Curso"
+                    btn.onclick = function () { ActivarCursos(ID_Curso, i) };
+                    btn.setAttribute("class", "btn btn-primary flex-grow-2 mr-3");
+                    btn.setAttribute("id", "baja"+i);
+                   
+                   
+                }
+            })
+    } else {
+
+    }
+
+
+
+
+
+
+
+
+}
+//CLICK AL BOTON DE ACTIVAR CURSO
+function ActivarCursos(ID_Curso, i) {
+
+    var opcion = confirm("¿Seguro que quiere activar el curso?");
+    if (opcion == true) {
+        var FoDatos = new FormData(); //Form de HTML
+        FoDatos.append('opc', 'L');
+        FoDatos.append('ID_Curso', ID_Curso);
+
+        fetch('php/Curso.php', { method: "POST", body: FoDatos }) //Función asincrona, manda los datos a User.php
+            .then(response => {
+                return response.text(); //Regresa tipo de dato texto
+            })
+            .then(data => {
+                console.log(data);
+                var Jason = data;
+                var obj = JSON.parse(Jason);
+                console.log(obj); //Imprimimos el texto
+                if (data == 1) {
+                    alert("Se ha activado el curso");
+                    var btn = document.getElementById('baja'+i);
+                    btn.innerHTML = "Dar de baja"
+                    btn.onclick = function () { BajaCursos(ID_Curso, i) };
+                    btn.setAttribute("class", "btn btn-danger flex-grow-2 mr-3");
+                    btn.setAttribute("id", "baja"+i);
+                }
+            })
+    } else {
+
+    }
+
+
+
+
+
+
+
+
+}
+//CLICK AL BOTON DE VER CURSO
+function Editar(ID_Curso) {
+
+
+    window.location.href = "EditarCurso.html?id=" + ID_Curso;
+
 
 }
